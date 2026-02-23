@@ -1,19 +1,19 @@
 📊 Telecom X — Análise de Evasão de Clientes (Churn)
-📌 Visão Geral
+📌 Sobre o Projeto
 
 Este projeto tem como objetivo analisar os fatores associados à evasão de clientes (Churn) na Telecom X.
 
-A empresa enfrenta uma taxa relevante de cancelamentos e precisa entender quais características dos clientes e do serviço contratado estão mais associadas à saída da base.
+A empresa enfrenta uma taxa relevante de cancelamentos e precisa entender quais características dos clientes e dos serviços contratados estão mais associadas à saída da base.
 
-A partir dessa análise exploratória, são gerados insights estratégicos que podem apoiar ações de retenção e o desenvolvimento de modelos preditivos de churn.
+A partir de uma análise exploratória estruturada, foram identificados padrões comportamentais e operacionais que podem apoiar estratégias de retenção e o desenvolvimento de modelos preditivos.
 
-🎯 Objetivos do Projeto
+🎯 Objetivos
 
 Importar dados em formato JSON via API (GitHub RAW)
 
-Realizar tratamento e limpeza dos dados (ETL)
+Aplicar processo de ETL (Extração, Transformação e Limpeza)
 
-Conduzir uma Análise Exploratória de Dados (EDA)
+Realizar Análise Exploratória de Dados (EDA)
 
 Identificar os principais fatores associados ao churn
 
@@ -29,56 +29,58 @@ NumPy
 
 Matplotlib
 
+Seaborn
+
 Google Colab
 
-📂 Estrutura do Projeto
-TelecomX-Churn/
-│
-├── TelecomX_Data.json
-├── TelecomX_Churn_Analysis.ipynb
-└── README.md
-🔄 Processo Realizado
-1️⃣ Extração de Dados (E)
+🔄 Processo Analítico
+1️⃣ Extração de Dados
 
-Dados carregados diretamente do arquivo JSON via URL pública.
+Dados carregados diretamente do arquivo JSON disponibilizado via GitHub.
 
 Conversão para DataFrame utilizando pd.json_normalize().
 
-2️⃣ Tratamento e Limpeza (T)
+2️⃣ Limpeza e Tratamento
 
-Foram realizados os seguintes ajustes:
+Foram realizadas as seguintes etapas:
 
 Verificação de valores ausentes
 
-Checagem e remoção de duplicados
+Checagem e remoção de duplicados por customerID
 
-Correção de tipo da variável Total Charges
+Conversão da variável account.Charges.Total para formato numérico
 
-Conversão do target Churn para variável binária (1 = Cancelou, 0 = Ativo)
+Transformação da variável Churn para formato binário (1 = Cancelou | 0 = Ativo)
 
 Padronização de colunas
 
-Criação da variável adicional:
+Criação da variável derivada:
 
-Contas_Diarias = Monthly Charges / 30
+Contas_Diarias = account.Charges.Monthly / 30
 3️⃣ Análise Exploratória (EDA)
 📊 Taxa Geral de Churn
 
-26,6% da base cancelou o serviço.
+26,6% dos clientes cancelaram o serviço.
 
-📈 Principais Variáveis Numéricas
+73,4% permanecem ativos.
+
+📈 Variáveis Numéricas
 
 Tenure (tempo de permanência)
 
-Clientes churn permanecem em média ~18 meses.
+Clientes churn: média ~18 meses
 
-Clientes ativos permanecem ~38 meses.
+Clientes ativos: média ~38 meses
 
-Clientes com até 6 meses apresentam churn superior a 50%.
+Faixa 0–6 meses apresenta churn superior a 50%
 
 Monthly Charges
 
-Clientes que churnam pagam mensalidades maiores em média.
+Clientes que cancelam pagam mensalidades maiores em média.
+
+Total Charges
+
+Clientes ativos apresentam maior valor acumulado (efeito direto do maior tempo de permanência).
 
 📊 Variáveis Categóricas
 
@@ -104,36 +106,70 @@ Gênero
 
 Diferença irrelevante.
 
+4️⃣ Análise Avançada (Extra)
+🔎 Correlação
+
+Tenure possui a maior correlação negativa com churn (-0,35).
+
+Cobrança mensal apresenta correlação positiva moderada (~0,19).
+
+Observada alta colinearidade entre variáveis financeiras (Monthly, Total e Contas_Diarias).
+
+📡 Engajamento — Quantidade de Serviços
+
+Foi criada a variável Qtd_Servicos, representando o número de serviços contratados.
+
+Resultado:
+
+Clientes com poucos serviços apresentam maior churn (~44%).
+
+Clientes com 7–8 serviços apresentam churn muito baixo (~5–12%).
+
+📌 Insight:
+Clientes mais engajados com o portfólio tendem a permanecer mais tempo na base.
+
 🔎 Principais Insights
 
 O tempo de relacionamento é o principal fator associado à evasão.
 
-Contratos mensais são significativamente mais arriscados.
+Contratos mensais são significativamente mais instáveis.
 
-Pagamentos não automáticos estão fortemente ligados ao churn.
+Pagamentos não automáticos apresentam maior risco.
 
-Clientes com mensalidade mais alta apresentam maior probabilidade de cancelamento.
+Clientes com mensalidades mais altas tendem a churnar mais.
 
-O perfil Senior Citizen merece atenção específica.
+Maior engajamento (mais serviços) reduz significativamente o churn.
 
 💡 Recomendações Estratégicas
 
 Foco em retenção nos primeiros 6 meses.
 
-Incentivar migração de contrato mensal para anual.
+Incentivar migração para contratos anuais.
 
-Oferecer benefícios para adesão ao pagamento automático.
+Estimular adesão ao pagamento automático.
 
 Desenvolver estratégias específicas para clientes idosos.
 
-Avaliar percepção de valor para planos com mensalidade elevada.
+Criar políticas de cross-sell para aumentar engajamento.
 
 🚀 Próximos Passos
 
-Feature Engineering para modelagem
+Feature Engineering para modelagem preditiva
 
 One-Hot Encoding de variáveis categóricas
 
-Construção de modelo preditivo (Logistic Regression / Random Forest)
+Construção de modelo de churn (Logistic Regression / Random Forest)
 
-Criação de score de risco de churn
+Criação de score de risco operacional
+
+📂 Estrutura do Repositório
+TelecomX-Churn/
+│
+├── TelecomX_Churn_Analysis.ipynb
+├── TelecomX_Data.json
+└── README.md
+👩‍💻 Autor
+
+Raquel Fernandes
+GitHub: https://github.com/rafernandes20
+LinkedIn: https://[linkedin.com/in/seuusuario](https://www.linkedin.com/in/raquelafernandes20/)
