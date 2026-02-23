@@ -172,4 +172,4 @@ TelecomX-Churn/
 
 Raquel Fernandes
 GitHub: https://github.com/rafernandes20
-LinkedIn: https://[linkedin.com/in/seuusuario](https://www.linkedin.com/in/raquelafernandes20/)
+LinkedIn: https://[linkedin.com/in/raquelfernandes](https://www.linkedin.com/in/raquelafernandes20/)
